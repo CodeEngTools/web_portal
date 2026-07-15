@@ -316,6 +316,17 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
 .totop:hover{background:var(--surface-2)}
 .totop svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2}
 
+/* testimonial */
+.quote-card{max-width:920px;margin:0 auto;background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(129,140,248,.07));border:1px solid var(--border-strong);border-radius:22px;padding:42px 40px;position:relative;box-shadow:var(--shadow)}
+.quote-card .mark{font-family:Georgia,'Times New Roman',serif;font-size:88px;line-height:.7;height:42px;color:var(--accent);opacity:.35}
+.quote-card blockquote{margin:0;font-size:1.16rem;line-height:1.72;color:#dbe4f0;font-weight:500}
+.quote-card blockquote strong{color:#fff;font-weight:600}
+.quote-card .by{display:flex;align-items:center;gap:15px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border)}
+.quote-card .by .ava{width:52px;height:52px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:1.05rem;color:#04121f;flex:0 0 auto}
+.quote-card .by .who{font-weight:700;line-height:1.3}
+.quote-card .by .who>span{display:block;color:var(--muted);font-weight:500;font-size:.9rem}
+@media(max-width:680px){.quote-card{padding:30px 24px}.quote-card blockquote{font-size:1.05rem}}
+
 @media(max-width:960px){.proc-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.proc-grid{grid-template-columns:1fr}}
 </style>
@@ -675,6 +686,27 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
           <span class="chip">Backblaze B2</span>
           <span class="chip">RDP</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="section-pad" id="testimonio">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:640px">
+      <span class="sec-eyebrow"><span class="lang-es">Testimonio</span><span class="lang-en">Testimonial</span></span>
+      <h2 class="sec-title"><span class="lang-es">Lo que dice el cliente</span><span class="lang-en">What the client says</span></h2>
+    </div>
+    <div class="quote-card reveal">
+      <div class="mark" aria-hidden="true">&ldquo;</div>
+      <blockquote>
+        <span class="lang-es">Trabajar con <strong>Miguel del Pino</strong> ha supuesto un antes y un después para TotalLogistic. Se encargó de automatizar procesos y formularios que antes hacíamos a mano, de proteger nuestros datos con un plan de copias y recuperación ante desastres, de integrar la banca online en nuestra operativa y de resolver un problema que arrastrábamos desde hacía tiempo: los límites de almacenamiento y de cuota del correo en Gmail. En lugar de un parche, nos montó un servidor de correo propio con Postfix y Dovecot que nos ha dado independencia y tranquilidad. Como broche, lo dejó todo bajo un panel de monitorización que comprueba de verdad el estado de cada servicio y nos avisa antes de que algo se convierta en un problema. Lo recomendamos sin reservas: rigor técnico, cumplimiento de plazos y un trato cercano.</span>
+        <span class="lang-en">Working with <strong>Miguel del Pino</strong> has been a turning point for TotalLogistic. He automated processes and forms we used to do by hand, protected our data with a backup and disaster-recovery plan, integrated online banking into our operations, and solved a long-standing problem: Gmail's storage and mailbox quota limits. Instead of a patch, he set up our own mail server with Postfix and Dovecot that gave us independence and peace of mind. To top it off, he left everything under a monitoring panel that genuinely checks the status of each service and alerts us before something becomes a problem. We recommend him without reservation: technical rigor, on-time delivery and a close, personal approach.</span>
+      </blockquote>
+      <div class="by">
+        <div class="ava">JL</div>
+        <div class="who">Jose Luis<span><span class="lang-es">Dirección de Operaciones · TotalLogistic</span><span class="lang-en">Head of Operations · TotalLogistic</span></span></div>
       </div>
     </div>
   </div>

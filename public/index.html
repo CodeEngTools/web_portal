@@ -13,6 +13,27 @@
 <meta property="og:url" content="https://codeengtools.eu/" />
 <link rel="canonical" href="https://codeengtools.eu/" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="theme-color" content="#080c15" />
+<meta property="og:site_name" content="CodeEngTools" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:image" content="https://codeengtools.eu/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="CodeEngTools — Miguel del Pino, Infrastructure &amp; Automation Engineer / SRE" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CodeEngTools — Miguel del Pino · Infrastructure &amp; Automation Engineer / SRE" />
+<meta name="twitter:description" content="Infraestructura fiable y procesos automatizados. Cloud e híbrido, backups &amp; DR, correo, monitorización y automatización end-to-end." />
+<meta name="twitter:image" content="https://codeengtools.eu/og-image.png" />
+<link rel="alternate" hreflang="es" href="https://codeengtools.eu/?lang=es" />
+<link rel="alternate" hreflang="en" href="https://codeengtools.eu/?lang=en" />
+<link rel="alternate" hreflang="x-default" href="https://codeengtools.eu/" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Miguel del Pino","jobTitle":"Infrastructure & Automation Engineer / SRE","email":"mailto:miguel.pino@codeengtools.eu","telephone":"+34623796366","url":"https://codeengtools.eu/","image":"https://codeengtools.eu/og-image.png","address":{"@type":"PostalAddress","addressLocality":"Cádiz","addressCountry":"ES"},"sameAs":["https://www.linkedin.com/in/migueldelpinomaya/"],"knowsLanguage":["es","en"],"knowsAbout":["Site Reliability Engineering","Infrastructure Automation","Azure","Docker","Terraform","Ansible","PowerShell","Bash","Python","Backup & Disaster Recovery","Postfix","Dovecot"],"worksFor":{"@type":"Organization","name":"CodeEngTools"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"CodeEngTools","description":"Servicios de SRE, infraestructura y automatización: diseño y operación cloud/híbrida, automatización de procesos, backup & DR, correo, monitorización y runbooks.","url":"https://codeengtools.eu/","image":"https://codeengtools.eu/og-image.png","areaServed":"ES","founder":{"@type":"Person","name":"Miguel del Pino"},"provider":{"@type":"Person","name":"Miguel del Pino"},"knowsLanguage":["es","en"]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -261,10 +282,48 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
   .section-pad{padding:52px 0}
   .brand span.tag{display:none}
 }
+
+/* skip link + focus */
+.skip{position:absolute;left:-999px;top:0;z-index:100;background:var(--accent);color:#04121f;padding:10px 16px;border-radius:0 0 10px 0;font-weight:600}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* process section */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.proc{background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:24px 22px;transition:transform .2s,border-color .2s}
+.proc:hover{transform:translateY(-4px);border-color:var(--border-strong)}
+.proc .step{font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:1px;margin-bottom:12px}
+.proc .pic{width:44px;height:44px;border-radius:12px;background:var(--grad-soft);border:1px solid var(--border-strong);display:grid;place-items:center;margin-bottom:14px}
+.proc .pic svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.proc h3{font-size:1.05rem;margin:0 0 7px;letter-spacing:-.2px}
+.proc p{margin:0;color:var(--muted);font-size:.92rem}
+
+/* copy email button */
+.copy-btn{margin-left:auto;background:rgba(148,163,184,.08);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:6px 11px;font-family:var(--mono);font-size:.72rem;cursor:pointer;transition:.2s;white-space:nowrap;flex:0 0 auto}
+.copy-btn:hover{color:var(--text);border-color:var(--border-strong)}
+.copy-btn.done{color:var(--accent-3);border-color:var(--accent-3)}
+
+/* CV button icon */
+.btn-cv svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* nav active (scroll-spy) */
+.nav-links a.link.active{color:var(--text)}
+.nav-links a.link.active::after{content:"";display:block;height:2px;border-radius:2px;background:var(--grad);margin-top:3px}
+
+/* back to top */
+.totop{position:fixed;right:22px;bottom:22px;z-index:60;width:46px;height:46px;border-radius:12px;background:var(--surface);border:1px solid var(--border-strong);display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .25s,transform .25s,background .2s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--surface-2)}
+.totop svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2}
+
+@media(max-width:960px){.proc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.proc-grid{grid-template-columns:1fr}}
 </style>
 <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
+
+<a class="skip" href="#top"><span class="lang-es">Saltar al contenido</span><span class="lang-en">Skip to content</span></a>
 
 <!-- NAV -->
 <header class="nav">
@@ -281,6 +340,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
 
     <nav class="nav-links" id="navLinks">
       <a class="link" href="#servicios"><span class="lang-es">Servicios</span><span class="lang-en">Services</span></a>
+      <a class="link" href="#proceso"><span class="lang-es">Proceso</span><span class="lang-en">Process</span></a>
       <a class="link" href="#caso"><span class="lang-es">Caso Total Logistic</span><span class="lang-en">Total Logistic case</span></a>
       <a class="link" href="#sobre-mi"><span class="lang-es">Sobre mí</span><span class="lang-en">About</span></a>
       <a class="link" href="#contacto"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a>
@@ -289,8 +349,8 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
 
     <div class="nav-right">
       <div class="langbtn" role="group" aria-label="Language">
-        <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
-        <button id="btn-en" onclick="setLang('en')">EN</button>
+        <button id="btn-es" class="active" aria-pressed="true" onclick="setLang('es')">ES</button>
+        <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
       </div>
       <button class="hamb" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -317,6 +377,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a class="btn btn-ghost" href="#caso"><span class="lang-es">Ver caso Total Logistic</span><span class="lang-en">View Total Logistic case</span></a>
+        <a class="btn btn-ghost btn-cv" href="/cv/Miguel-del-Pino-CV.pdf" download><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg><span class="lang-es">Descargar CV</span><span class="lang-en">Download CV</span></a>
       </div>
       <div class="stats">
         <div class="stat"><div class="n">5+</div><div class="l"><span class="lang-es">años de experiencia</span><span class="lang-en">years of experience</span></div></div>
@@ -416,6 +477,43 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M9 20h6"/><path d="M8 9l2 2 4-4"/></svg></div>
         <h3><span class="lang-es">Fiabilidad &amp; runbooks</span><span class="lang-en">Reliability &amp; runbooks</span></h3>
         <p><span class="lang-es">RCA, troubleshooting y documentación operativa. Runbooks y procedimientos para que el conocimiento no dependa de una persona.</span><span class="lang-en">RCA, troubleshooting and operational docs. Runbooks and procedures so knowledge doesn't depend on one person.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section-pad" id="proceso">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow"><span class="lang-es">Cómo trabajo</span><span class="lang-en">How I work</span></span>
+      <h2 class="sec-title"><span class="lang-es">Del diagnóstico al traspaso, en cuatro pasos</span><span class="lang-en">From diagnosis to handover, in four steps</span></h2>
+      <p class="sec-sub"><span class="lang-es">Un método claro y documentado para que cada proyecto acabe siendo mantenible por tu equipo, no dependiente de mí.</span><span class="lang-en">A clear, documented method so every project ends up maintainable by your team — not dependent on me.</span></p>
+    </div>
+    <div class="proc-grid">
+      <div class="proc reveal">
+        <div class="step">01</div>
+        <div class="pic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div>
+        <h3><span class="lang-es">Diagnóstico</span><span class="lang-en">Diagnosis</span></h3>
+        <p><span class="lang-es">Mapeo del entorno, inventario de servicios críticos y detección de puntos de dolor y riesgos.</span><span class="lang-en">Environment mapping, inventory of critical services and detection of pain points and risks.</span></p>
+      </div>
+      <div class="proc reveal">
+        <div class="step">02</div>
+        <div class="pic"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c.6.6 1 1.2 1 2h6c0-.8.4-1.4 1-2a7 7 0 0 0-4-12z"/></svg></div>
+        <h3><span class="lang-es">Propuesta</span><span class="lang-en">Proposal</span></h3>
+        <p><span class="lang-es">Hoja de ruta priorizada por impacto y riesgo, con quick wins y cambios estructurales.</span><span class="lang-en">A roadmap prioritized by impact and risk, with quick wins and structural changes.</span></p>
+      </div>
+      <div class="proc reveal">
+        <div class="step">03</div>
+        <div class="pic"><svg viewBox="0 0 24 24"><path d="M14 4l-2 4h4l-4 8"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3><span class="lang-es">Implementación</span><span class="lang-en">Implementation</span></h3>
+        <p><span class="lang-es">Despliegue incremental y verificable — automatización, backups, correo o monitorización — sin cortar la operación.</span><span class="lang-en">Incremental, verifiable rollout — automation, backups, mail or monitoring — without disrupting operations.</span></p>
+      </div>
+      <div class="proc reveal">
+        <div class="step">04</div>
+        <div class="pic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M9 20h6"/><path d="M8 9l2 2 4-4"/></svg></div>
+        <h3><span class="lang-es">Traspaso</span><span class="lang-en">Handover</span></h3>
+        <p><span class="lang-es">Runbooks, procedimientos y documentación para que tu equipo opere y recupere sin depender de nadie.</span><span class="lang-en">Runbooks, procedures and documentation so your team can operate and recover without depending on anyone.</span></p>
       </div>
     </div>
   </div>
@@ -676,6 +774,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
         <a class="contact-item" href="mailto:miguel.pino@codeengtools.eu">
           <span class="ci"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg></span>
           <span><span class="k">Email</span><br/><span class="v">miguel.pino@codeengtools.eu</span></span>
+          <button type="button" class="copy-btn" data-copy="miguel.pino@codeengtools.eu" onclick="copyEmail(event)" aria-label="Copiar email"><span class="lang-es">Copiar</span><span class="lang-en">Copy</span></button>
         </a>
         <a class="contact-item" href="tel:+34623796366">
           <span class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l4 1v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
@@ -731,6 +830,10 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
   </div>
 </footer>
 
+<button class="totop" id="totop" aria-label="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg>
+</button>
+
 <script>
 // language toggle (in-memory only)
 function setLang(l, updateUrl){
@@ -739,15 +842,21 @@ function setLang(l, updateUrl){
   document.documentElement.lang = l;
   document.getElementById('btn-es').classList.toggle('active', !en);
   document.getElementById('btn-en').classList.toggle('active', en);
+  document.getElementById('btn-es').setAttribute('aria-pressed', String(!en));
+  document.getElementById('btn-en').setAttribute('aria-pressed', String(en));
+  try{ localStorage.setItem('lang', l); }catch(e){}
   if(updateUrl !== false){
     try{ var u = new URL(window.location.href); u.searchParams.set('lang', l); history.replaceState(null, '', u.toString()); }catch(e){}
   }
 }
-// Idioma inicial desde ?lang= (p.ej. compartir https://codeengtools.eu/?lang=en)
+// Idioma inicial: ?lang= (compartible) > preferencia guardada > idioma del navegador > ES
 (function(){
   try{
-    var l = new URLSearchParams(window.location.search).get('lang');
-    if(l === 'en' || l === 'es'){ setLang(l, false); }
+    var q = new URLSearchParams(window.location.search).get('lang');
+    var saved = null; try{ saved = localStorage.getItem('lang'); }catch(e){}
+    var nav = (navigator.language || 'es').toLowerCase().slice(0,2);
+    var l = (q === 'en' || q === 'es') ? q : (saved === 'en' || saved === 'es') ? saved : (nav === 'en' ? 'en' : 'es');
+    if(l === 'en'){ setLang('en', false); }
   }catch(e){}
 })();
 // mailto helper
@@ -779,6 +888,35 @@ if('IntersectionObserver' in window){
 } else {
   revealAll();
 }
+// copiar email al portapapeles
+function copyEmail(e){
+  e.preventDefault(); e.stopPropagation();
+  var btn = e.currentTarget, val = btn.getAttribute('data-copy');
+  var done = function(){
+    btn.classList.add('done');
+    var es=btn.querySelector('.lang-es'), en=btn.querySelector('.lang-en');
+    if(es)es.textContent='¡Copiado!'; if(en)en.textContent='Copied!';
+    setTimeout(function(){ btn.classList.remove('done'); if(es)es.textContent='Copiar'; if(en)en.textContent='Copy'; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(val).then(done).catch(done); }
+  else { try{ var t=document.createElement('textarea'); t.value=val; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); done(); }catch(err){} }
+}
+// scroll-spy: resaltar el enlace de nav de la sección visible
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a.link'));
+  var map = links.map(function(a){ var id=a.getAttribute('href'); return { a:a, el: id && id.charAt(0)==='#' ? document.querySelector(id) : null }; }).filter(function(x){ return x.el; });
+  if(!map.length || !('IntersectionObserver' in window)) return;
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ map.forEach(function(x){ x.a.classList.toggle('active', x.el===en.target); }); } });
+  }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+  map.forEach(function(x){ spy.observe(x.el); });
+})();
+// botón volver arriba
+(function(){
+  var btn = document.getElementById('totop'); if(!btn) return;
+  var onScroll = function(){ btn.classList.toggle('show', window.scrollY > 600); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+})();
 </script>
 </body>
 </html>

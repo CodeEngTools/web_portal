@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CodeEngTools — Miguel del Pino · Infrastructure &amp; Automation Engineer / SRE</title>
+<meta name="description" content="CodeEngTools — Miguel del Pino, ingeniero SRE / Infrastructure & Automation. Diseño, automatización y operación de infraestructura cloud e híbrida: Docker, Azure, backups & DR, correo Postfix/Dovecot, monitorización y runbooks." />
+<meta name="author" content="Miguel del Pino" />
+<meta name="color-scheme" content="dark" />
+<meta property="og:title" content="CodeEngTools — Miguel del Pino · Infrastructure & Automation Engineer / SRE" />
+<meta property="og:description" content="Infraestructura fiable y procesos automatizados. Cloud e híbrido, backups & DR, correo, monitorización y automatización end-to-end." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://codeengtools.eu/" />
+<link rel="canonical" href="https://codeengtools.eu/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#080c15;
+  --bg-2:#0b1120;
+  --surface:#0f1729;
+  --surface-2:#131d33;
+  --border:rgba(148,163,184,.14);
+  --border-strong:rgba(148,163,184,.28);
+  --text:#e8eef8;
+  --muted:#93a4bd;
+  --muted-2:#6b7c96;
+  --accent:#38bdf8;
+  --accent-2:#818cf8;
+  --accent-3:#34d399;
+  --grad:linear-gradient(135deg,#38bdf8 0%,#818cf8 60%,#a78bfa 100%);
+  --grad-soft:linear-gradient(135deg,rgba(56,189,248,.16),rgba(129,140,248,.14));
+  --shadow:0 24px 60px -20px rgba(2,6,23,.75);
+  --radius:18px;
+  --maxw:1140px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(900px 600px at 78% -8%,rgba(56,189,248,.14),transparent 60%),
+    radial-gradient(800px 620px at 8% 10%,rgba(129,140,248,.12),transparent 55%),
+    radial-gradient(700px 700px at 60% 100%,rgba(52,211,153,.07),transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(closest-side at 50% 40%,#000 40%,transparent 92%);
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* i18n toggle */
+.lang-en{display:none}
+body.en .lang-es{display:none}
+body.en .lang-en{display:revert}
+
+/* ---------- NAV ---------- */
+header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(8,12,21,.72);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.2px;font-size:1.12rem}
+.brand .logo{width:34px;height:34px;border-radius:9px;background:var(--grad);display:grid;place-items:center;box-shadow:0 8px 22px -8px rgba(56,189,248,.7)}
+.brand .logo svg{width:20px;height:20px}
+.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand span.tag{color:var(--muted-2);font-weight:500;font-size:.7rem;font-family:var(--mono);display:block;letter-spacing:.5px;margin-top:-3px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a.link{color:var(--muted);font-weight:500;font-size:.93rem;transition:color .2s}
+.nav-links a.link:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:14px}
+.langbtn{display:inline-flex;border:1px solid var(--border-strong);border-radius:999px;overflow:hidden;font-family:var(--mono);font-size:.74rem;font-weight:600}
+.langbtn button{background:transparent;color:var(--muted);border:0;padding:6px 12px;cursor:pointer;transition:.2s}
+.langbtn button.active{background:var(--grad);color:#04121f}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.93rem;padding:11px 20px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:transform .15s,box-shadow .2s,background .2s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--grad);color:#04121f;box-shadow:0 12px 30px -12px rgba(56,189,248,.75)}
+.btn-primary:hover{box-shadow:0 16px 40px -12px rgba(56,189,248,.9)}
+.btn-ghost{background:rgba(148,163,184,.06);border-color:var(--border-strong);color:var(--text)}
+.btn-ghost:hover{background:rgba(148,163,184,.12)}
+.hamb{display:none;background:none;border:1px solid var(--border-strong);border-radius:10px;padding:8px;cursor:pointer}
+.hamb svg{width:22px;height:22px;stroke:var(--text)}
+
+/* ---------- HERO ---------- */
+.hero{padding:74px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.76rem;letter-spacing:.6px;text-transform:uppercase;color:var(--accent);background:var(--grad-soft);border:1px solid var(--border-strong);padding:7px 14px;border-radius:999px;margin-bottom:22px}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+h1.h-title{font-size:clamp(2.1rem,4.6vw,3.5rem);line-height:1.07;letter-spacing:-1.4px;font-weight:800;margin:0 0 20px}
+h1.h-title em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:1.09rem;color:var(--muted);max-width:560px;margin:0 0 30px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
+.stats{display:flex;flex-wrap:wrap;gap:14px}
+.stat{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.stat .n{font-size:1.5rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-family:var(--mono)}
+.stat .l{font-size:.8rem;color:var(--muted);margin-top:2px}
+
+/* terminal card */
+.terminal{background:linear-gradient(180deg,#0c1424,#0a1120);border:1px solid var(--border-strong);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.term-bar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--border);background:rgba(148,163,184,.04)}
+.term-bar .d{width:11px;height:11px;border-radius:50%}
+.term-bar .d.r{background:#ff5f57}.term-bar .d.y{background:#febc2e}.term-bar .d.g{background:#28c840}
+.term-bar .t{margin-left:8px;font-family:var(--mono);font-size:.76rem;color:var(--muted-2)}
+.term-body{padding:18px;font-family:var(--mono);font-size:.82rem;line-height:1.85;overflow-x:auto}
+.term-body .c{color:var(--muted-2)}
+.term-body .p{color:var(--accent-3)}
+.term-body .k{color:var(--accent)}
+.term-body .s{color:#e2b877}
+.term-body .ok{color:var(--accent-3)}
+.term-body .v{color:var(--text)}
+
+/* ---------- generic section ---------- */
+.section-pad{padding:64px 0}
+.sec-head{max-width:640px;margin-bottom:44px}
+.sec-eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:600}
+h2.sec-title{font-size:clamp(1.7rem,3.2vw,2.35rem);letter-spacing:-.8px;font-weight:800;margin:12px 0 12px;line-height:1.12}
+.sec-sub{color:var(--muted);font-size:1.03rem}
+
+/* tech strip */
+.strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(15,23,41,.5)}
+.strip-inner{display:flex;flex-wrap:wrap;gap:10px 12px;padding:22px 0;align-items:center;justify-content:center}
+.chip{font-family:var(--mono);font-size:.8rem;color:var(--muted);border:1px solid var(--border);background:var(--surface);padding:7px 13px;border-radius:9px;transition:.2s}
+.chip:hover{color:var(--text);border-color:var(--border-strong);transform:translateY(-2px)}
+
+/* services */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px;transition:transform .2s,border-color .2s,box-shadow .25s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:var(--shadow)}
+.card .ic{width:46px;height:46px;border-radius:12px;background:var(--grad-soft);border:1px solid var(--border-strong);display:grid;place-items:center;margin-bottom:16px}
+.card .ic svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.card h3{font-size:1.08rem;font-weight:700;margin:0 0 8px;letter-spacing:-.2px}
+.card p{color:var(--muted);font-size:.94rem;margin:0}
+
+/* ---------- CASE STUDY ---------- */
+.case{background:linear-gradient(180deg,rgba(15,23,41,.6),rgba(8,12,21,0))}
+.case-hero{background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(129,140,248,.07));border:1px solid var(--border-strong);border-radius:22px;padding:38px 34px;margin-bottom:34px}
+.case-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;letter-spacing:.6px;text-transform:uppercase;color:var(--accent-3);border:1px solid var(--border-strong);padding:6px 12px;border-radius:999px;margin-bottom:16px}
+.case-hero h3{font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:-.6px;font-weight:800;margin:0 0 14px}
+.case-hero p{color:var(--muted);font-size:1.05rem;max-width:760px;margin:0}
+.case-meta{display:flex;flex-wrap:wrap;gap:26px;margin-top:24px;padding-top:22px;border-top:1px solid var(--border)}
+.case-meta .m .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;color:var(--muted-2)}
+.case-meta .m .val{font-weight:600;margin-top:3px;font-size:.96rem}
+
+.phase{display:grid;grid-template-columns:190px 1fr;gap:26px;padding:30px 0;border-top:1px solid var(--border)}
+.phase:first-of-type{border-top:0}
+.phase .num{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:1px}
+.phase h4{font-size:1.28rem;font-weight:800;letter-spacing:-.4px;margin:8px 0 0}
+.phase .body p{color:var(--muted);margin:0 0 16px;font-size:1rem}
+.phase .body p:last-child{margin-bottom:0}
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:6px}
+.pillar{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 18px}
+.pillar h5{margin:0 0 6px;font-size:1rem;display:flex;align-items:center;gap:9px}
+.pillar h5 .pi{width:30px;height:30px;border-radius:8px;background:var(--grad-soft);border:1px solid var(--border-strong);display:grid;place-items:center;flex:0 0 auto}
+.pillar h5 .pi svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.pillar p{margin:0;color:var(--muted);font-size:.9rem}
+.tick-list{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:11px}
+.tick-list li{display:flex;gap:11px;color:var(--muted);font-size:.98rem}
+.tick-list li svg{width:19px;height:19px;flex:0 0 auto;margin-top:3px;stroke:var(--accent-3);fill:none;stroke-width:2}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:8px}
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 18px;text-align:center}
+.rcard .ri{width:40px;height:40px;margin:0 auto 10px;border-radius:10px;background:var(--grad-soft);border:1px solid var(--border-strong);display:grid;place-items:center}
+.rcard .ri svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.rcard p{margin:0;font-size:.9rem;color:var(--muted)}
+.rcard b{color:var(--text);display:block;font-size:.98rem;margin-bottom:3px}
+.stack-used{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start}
+.about-card{background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--border);border-radius:20px;padding:30px;position:sticky;top:92px}
+.avatar{width:96px;height:96px;border-radius:20px;background:var(--grad);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:2rem;color:#04121f;margin-bottom:18px;box-shadow:0 14px 34px -12px rgba(56,189,248,.7)}
+.about-card h3{margin:0 0 3px;font-size:1.32rem;letter-spacing:-.3px}
+.about-card .role{color:var(--accent);font-family:var(--mono);font-size:.86rem;margin-bottom:16px}
+.about-card .meta{display:grid;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.about-card .meta div{display:flex;align-items:center;gap:11px;color:var(--muted);font-size:.92rem}
+.about-card .meta svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:1.7;flex:0 0 auto}
+.about-body p{color:var(--muted);font-size:1.03rem}
+.about-body p strong{color:var(--text);font-weight:600}
+.timeline{margin-top:26px;border-left:2px solid var(--border);padding-left:26px;display:grid;gap:24px}
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:-33px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(56,189,248,.16)}
+.tl .when{font-family:var(--mono);font-size:.76rem;color:var(--muted-2);letter-spacing:.4px}
+.tl h4{margin:4px 0 2px;font-size:1.05rem;font-weight:700}
+.tl .co{color:var(--accent);font-size:.92rem;margin-bottom:6px}
+.tl p{margin:0;color:var(--muted);font-size:.94rem}
+
+/* ---------- CONTACT ---------- */
+.contact{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(129,140,248,.06));border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.contact h2{font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.8px;font-weight:800;margin:12px 0 14px;line-height:1.1}
+.contact p.lead{color:var(--muted);font-size:1.06rem;max-width:460px}
+.contact-list{display:grid;gap:12px;margin-top:24px}
+.contact-item{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:15px 17px;transition:.2s}
+.contact-item:hover{border-color:var(--border-strong);transform:translateX(3px)}
+.contact-item .ci{width:42px;height:42px;border-radius:11px;background:var(--grad-soft);border:1px solid var(--border-strong);display:grid;place-items:center;flex:0 0 auto}
+.contact-item .ci svg{width:21px;height:21px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.contact-item .k{font-size:.76rem;color:var(--muted-2);font-family:var(--mono);letter-spacing:.4px}
+.contact-item .v{font-weight:600;font-size:.98rem}
+.form{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px}
+.form label{display:block;font-size:.82rem;color:var(--muted);margin:0 0 6px;font-weight:500}
+.form .row{margin-bottom:16px}
+.form input,.form textarea{width:100%;background:var(--bg-2);border:1px solid var(--border-strong);border-radius:11px;padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:.95rem;transition:.2s}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.15)}
+.form textarea{resize:vertical;min-height:110px}
+.form .btn-primary{width:100%;justify-content:center}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
+.foot-inner{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.foot-inner .brand{font-size:1rem}
+.foot-inner p{color:var(--muted-2);font-size:.86rem;margin:0}
+.foot-social{display:flex;gap:10px}
+.foot-social a{width:38px;height:38px;border-radius:10px;border:1px solid var(--border);display:grid;place-items:center;transition:.2s}
+.foot-social a:hover{border-color:var(--border-strong);background:var(--surface)}
+.foot-social svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.7}
+.foot-social a:hover svg{stroke:var(--accent)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .terminal{max-width:560px}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr;gap:30px}
+  .about-card{position:static}
+  .contact-grid{grid-template-columns:1fr;gap:30px}
+  .results{grid-template-columns:repeat(2,1fr)}
+  .phase{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:680px){
+  .nav-links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:rgba(8,12,21,.98);border-bottom:1px solid var(--border);padding:18px 24px;gap:18px;align-items:flex-start}
+  .nav-links.open{display:flex}
+  .nav-links .btn{width:100%;justify-content:center}
+  .hamb{display:inline-flex}
+  .grid-3{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
+  .results{grid-template-columns:1fr}
+  .case-hero{padding:26px 22px}
+  .section-pad{padding:52px 0}
+  .brand span.tag{display:none}
+}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="CodeEngTools">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#04121f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg>
+      </span>
+      <span>
+        <b>CodeEngTools</b>
+        <span class="tag">infra · automation · reliability</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a class="link" href="#servicios"><span class="lang-es">Servicios</span><span class="lang-en">Services</span></a>
+      <a class="link" href="#caso"><span class="lang-es">Caso Total Logistic</span><span class="lang-en">Total Logistic case</span></a>
+      <a class="link" href="#sobre-mi"><span class="lang-es">Sobre mí</span><span class="lang-en">About</span></a>
+      <a class="link" href="#contacto"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a>
+      <a class="btn btn-primary" href="#contacto"><span class="lang-es">Hablemos</span><span class="lang-en">Let's talk</span></a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="langbtn" role="group" aria-label="Language">
+        <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="hamb" aria-label="Menu" onclick="document.getElementById('navLinks').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span><span class="lang-es">Disponible para proyectos y consultoría</span><span class="lang-en">Available for projects &amp; consulting</span></span>
+      <h1 class="h-title">
+        <span class="lang-es">Infraestructura fiable y procesos <em>automatizados</em> para que tu operación no se detenga.</span>
+        <span class="lang-en">Reliable infrastructure and <em>automated</em> processes that keep your operation running.</span>
+      </h1>
+      <p class="lead">
+        <span class="lang-es">Soy <strong>Miguel del Pino</strong>, ingeniero SRE / Infrastructure &amp; Automation con más de 5 años diseñando, automatizando y operando infraestructura cloud e híbrida. Convierto problemas operativos en soluciones mantenibles: automatización, runbooks, backups y fiabilidad.</span>
+        <span class="lang-en">I'm <strong>Miguel del Pino</strong>, an SRE / Infrastructure &amp; Automation engineer with 5+ years designing, automating and operating cloud and hybrid infrastructure. I turn operational problems into maintainable solutions: automation, runbooks, backups and reliability.</span>
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contacto"><span class="lang-es">Trabajemos juntos</span><span class="lang-en">Work with me</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#caso"><span class="lang-es">Ver caso Total Logistic</span><span class="lang-en">View Total Logistic case</span></a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">5+</div><div class="l"><span class="lang-es">años de experiencia</span><span class="lang-en">years of experience</span></div></div>
+        <div class="stat"><div class="n">~30%</div><div class="l"><span class="lang-es">menos trabajo manual</span><span class="lang-en">less manual work</span></div></div>
+        <div class="stat"><div class="n">~25%</div><div class="l"><span class="lang-es">menos downtime</span><span class="lang-en">less downtime</span></div></div>
+        <div class="stat"><div class="n">24/7</div><div class="l"><span class="lang-es">servicios críticos</span><span class="lang-en">critical services</span></div></div>
+      </div>
+    </div>
+
+    <div class="terminal reveal">
+      <div class="term-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="t">runbook — reliability@codeengtools</span></div>
+      <div class="term-body">
+<span class="c"># health-check de servicios críticos</span><br/>
+<span class="p">$</span> <span class="k">ansible-playbook</span> <span class="v">site.yml</span> <span class="s">--tags backup,mail,monitor</span><br/>
+<br/>
+<span class="v">PLAY [infra híbrida] </span><span class="c">****************</span><br/>
+<span class="ok">ok</span><span class="v">: [host-hyperv]   → VMs + snapshots</span><br/>
+<span class="ok">ok</span><span class="v">: [mail-postfix]   → Dovecot / IMAP</span><br/>
+<span class="ok">ok</span><span class="v">: [nas-backup]     → Backblaze B2</span><br/>
+<span class="ok">ok</span><span class="v">: [monitor-panel]  → dashboards up</span><br/>
+<br/>
+<span class="c"># PLAY RECAP</span><br/>
+<span class="v">changed=</span><span class="k">0</span><span class="v">  unreachable=</span><span class="k">0</span><span class="v">  failed=</span><span class="k">0</span><br/>
+<span class="ok">✓ operación estable — todo verde</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STRIP -->
+<div class="strip">
+  <div class="wrap strip-inner">
+    <span class="chip">Azure</span>
+    <span class="chip">Windows Server 2022</span>
+    <span class="chip">Hyper-V</span>
+    <span class="chip">Linux / Ubuntu</span>
+    <span class="chip">Docker</span>
+    <span class="chip">Terraform</span>
+    <span class="chip">Ansible</span>
+    <span class="chip">PowerShell</span>
+    <span class="chip">Bash</span>
+    <span class="chip">Python</span>
+    <span class="chip">Postfix</span>
+    <span class="chip">Dovecot</span>
+    <span class="chip">NAS</span>
+    <span class="chip">Backblaze B2</span>
+    <span class="chip">Azure DevOps</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section-pad" id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow"><span class="lang-es">Servicios</span><span class="lang-en">Services</span></span>
+      <h2 class="sec-title"><span class="lang-es">Qué puedo hacer por tu infraestructura</span><span class="lang-en">What I can do for your infrastructure</span></h2>
+      <p class="sec-sub"><span class="lang-es">Del diagnóstico al despliegue: diseño soluciones que reducen el trabajo manual, aumentan la fiabilidad y quedan documentadas para que tu equipo pueda operarlas.</span><span class="lang-en">From diagnosis to deployment: I design solutions that cut manual work, raise reliability and stay documented so your team can operate them.</span></p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><line x1="7" y1="6.5" x2="7" y2="6.5"/><line x1="7" y1="17.5" x2="7" y2="17.5"/></svg></div>
+        <h3><span class="lang-es">Infraestructura híbrida</span><span class="lang-en">Hybrid infrastructure</span></h3>
+        <p><span class="lang-es">Diseño y operación de entornos Windows/Linux, Hyper-V, RDP, red local y NAS. On-premises y cloud trabajando como uno solo.</span><span class="lang-en">Design and operation of Windows/Linux, Hyper-V, RDP, local network and NAS environments. On-premises and cloud working as one.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M14 4l-2 4h4l-4 8"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3><span class="lang-es">Automatización de procesos</span><span class="lang-en">Process automation</span></h3>
+        <p><span class="lang-es">Elimino tareas manuales repetitivas con PowerShell, Bash, Python y Ansible. Menos errores, menos toil, más tiempo para lo importante.</span><span class="lang-en">I remove repetitive manual tasks with PowerShell, Bash, Python and Ansible. Fewer errors, less toil, more time for what matters.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h4v4H8z"/><line x1="15" y1="8" x2="18" y2="8"/><line x1="15" y1="12" x2="18" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg></div>
+        <h3><span class="lang-es">Stack de herramientas internas</span><span class="lang-en">Internal tooling stack</span></h3>
+        <p><span class="lang-es">Aplicaciones internas en Docker con interfaz web: formularios de gestión, paneles y automatizaciones que tu equipo usa a diario.</span><span class="lang-en">Internal apps in Docker with a web interface: management forms, panels and automations your team uses every day.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></div>
+        <h3><span class="lang-es">Soluciones de correo</span><span class="lang-en">Email solutions</span></h3>
+        <p><span class="lang-es">Correo local con Postfix y Dovecot para resolver límites de cuota y conexión de cuentas IMAP/Gmail compartidas.</span><span class="lang-en">Local mail with Postfix and Dovecot to fix quota and connection limits on shared IMAP/Gmail accounts.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+        <h3><span class="lang-es">Backup &amp; Disaster Recovery</span><span class="lang-en">Backup &amp; Disaster Recovery</span></h3>
+        <p><span class="lang-es">Estrategias de continuidad de negocio: backups de VMs, snapshots, NAS y copia externa cifrada en Backblaze B2.</span><span class="lang-en">Business continuity strategies: VM backups, snapshots, NAS and encrypted off-site copies in Backblaze B2.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg></div>
+        <h3><span class="lang-es">Monitorización &amp; panel de control</span><span class="lang-en">Monitoring &amp; control panel</span></h3>
+        <p><span class="lang-es">Observabilidad, alertado y paneles para lanzar y supervisar procesos. Detectar antes, reaccionar antes, reducir downtime.</span><span class="lang-en">Observability, alerting and panels to launch and supervise processes. Detect sooner, react sooner, reduce downtime.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h3><span class="lang-es">Cloud &amp; DevOps</span><span class="lang-en">Cloud &amp; DevOps</span></h3>
+        <p><span class="lang-es">Azure, Azure DevOps, CI/CD y Terraform. Migraciones on-prem → cloud e infraestructura como código reproducible.</span><span class="lang-en">Azure, Azure DevOps, CI/CD and Terraform. On-prem → cloud migrations and reproducible infrastructure as code.</span></p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M9 20h6"/><path d="M8 9l2 2 4-4"/></svg></div>
+        <h3><span class="lang-es">Fiabilidad &amp; runbooks</span><span class="lang-en">Reliability &amp; runbooks</span></h3>
+        <p><span class="lang-es">RCA, troubleshooting y documentación operativa. Runbooks y procedimientos para que el conocimiento no dependa de una persona.</span><span class="lang-en">RCA, troubleshooting and operational docs. Runbooks and procedures so knowledge doesn't depend on one person.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case section-pad" id="caso">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow"><span class="lang-es">Caso de estudio</span><span class="lang-en">Case study</span></span>
+      <h2 class="sec-title"><span class="lang-es">Total Logistic — de operación frágil a plataforma fiable</span><span class="lang-en">Total Logistic — from fragile operations to a reliable platform</span></h2>
+      <p class="sec-sub"><span class="lang-es">Análisis de mejoras, solución a medida, desarrollo y despliegue de un entorno híbrido completo para un cliente empresarial.</span><span class="lang-en">Improvement analysis, a tailored solution, development and deployment of a full hybrid environment for an enterprise client.</span></p>
+    </div>
+
+    <div class="case-hero reveal">
+      <span class="case-tag"><span class="lang-es">Cliente empresarial · en curso</span><span class="lang-en">Enterprise client · ongoing</span></span>
+      <h3><span class="lang-es">Un entorno crítico que necesitaba fiabilidad, automatización y continuidad</span><span class="lang-en">A critical environment that needed reliability, automation and continuity</span></h3>
+      <p><span class="lang-es">Total Logistic operaba sobre una infraestructura híbrida Windows/Linux con procesos manuales, correo compartido al límite de cuota y sin una estrategia de recuperación clara. El encargo: analizar el entorno, proponer mejoras y llevarlas a producción.</span><span class="lang-en">Total Logistic ran on a hybrid Windows/Linux infrastructure with manual processes, shared email hitting quota limits and no clear recovery strategy. The brief: analyze the environment, propose improvements and take them to production.</span></p>
+      <div class="case-meta">
+        <div class="m"><div class="k"><span class="lang-es">Rol</span><span class="lang-en">Role</span></div><div class="val">SRE / Infrastructure &amp; Automation Consultant</div></div>
+        <div class="m"><div class="k"><span class="lang-es">Duración</span><span class="lang-en">Timeline</span></div><div class="val"><span class="lang-es">Jul 2025 — Presente</span><span class="lang-en">Jul 2025 — Present</span></div></div>
+        <div class="m"><div class="k"><span class="lang-es">Entorno</span><span class="lang-en">Environment</span></div><div class="val"><span class="lang-es">Híbrido Windows/Linux · on-prem + cloud</span><span class="lang-en">Hybrid Windows/Linux · on-prem + cloud</span></div></div>
+        <div class="m"><div class="k"><span class="lang-es">Enfoque</span><span class="lang-en">Approach</span></div><div class="val"><span class="lang-es">Análisis → Solución → Despliegue</span><span class="lang-en">Analysis → Solution → Deployment</span></div></div>
+      </div>
+    </div>
+
+    <!-- PHASE 1: CHALLENGE -->
+    <div class="phase reveal">
+      <div>
+        <div class="num">01</div>
+        <h4><span class="lang-es">El reto</span><span class="lang-en">The challenge</span></h4>
+      </div>
+      <div class="body">
+        <p><span class="lang-es">El día a día dependía de tareas manuales y de conocimiento no documentado. Los puntos de dolor eran claros:</span><span class="lang-en">Daily operations relied on manual tasks and undocumented knowledge. The pain points were clear:</span></p>
+        <ul class="tick-list">
+          <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="lang-es">Procesos operativos repetitivos ejecutados a mano, con riesgo de error humano.</span><span class="lang-en">Repetitive operational processes run by hand, prone to human error.</span></li>
+          <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="lang-es">Cuentas de correo IMAP/Gmail compartidas chocando con límites de cuota y de conexión simultánea.</span><span class="lang-en">Shared IMAP/Gmail accounts hitting quota and simultaneous-connection limits.</span></li>
+          <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="lang-es">Sin una estrategia de backup y recuperación probada ante fallo de host o pérdida de datos.</span><span class="lang-en">No tested backup and recovery strategy against host failure or data loss.</span></li>
+          <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="lang-es">Entorno multiusuario Windows Server vía RDP sin visibilidad de rendimiento ni de consumo de recursos.</span><span class="lang-en">Multi-user Windows Server over RDP with no visibility into performance or resource usage.</span></li>
+          <li><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="lang-es">Incidencias de red, DNS e ISP difíciles de diagnosticar sin herramientas ni procedimientos.</span><span class="lang-en">Network, DNS and ISP incidents hard to diagnose without tooling or procedures.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PHASE 2: ANALYSIS -->
+    <div class="phase reveal">
+      <div>
+        <div class="num">02</div>
+        <h4><span class="lang-es">Análisis de mejoras</span><span class="lang-en">Improvement analysis</span></h4>
+      </div>
+      <div class="body">
+        <p><span class="lang-es">Antes de tocar nada, mapeé el entorno y prioricé las mejoras por impacto y riesgo: qué reducía más trabajo manual, qué eliminaba puntos únicos de fallo y qué era rápido de estabilizar. De ahí salió una hoja de ruta clara con quick wins y con cambios estructurales.</span><span class="lang-en">Before touching anything, I mapped the environment and prioritized improvements by impact and risk: what removed the most manual work, what eliminated single points of failure and what could be stabilized quickly. That produced a clear roadmap of quick wins and structural changes.</span></p>
+        <ul class="tick-list">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Inventario de servicios críticos, dependencias y procesos manuales candidatos a automatizar.</span><span class="lang-en">Inventory of critical services, dependencies and manual processes worth automating.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Diagnóstico de rendimiento del entorno multiusuario (sesiones, perfiles, apps compartidas, recursos).</span><span class="lang-en">Performance diagnosis of the multi-user environment (sessions, profiles, shared apps, resources).</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Evaluación del correo IMAP/Gmail y de sus límites frente a alternativas locales.</span><span class="lang-en">Assessment of IMAP/Gmail email and its limits versus local alternatives.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Análisis de riesgo de continuidad: qué se perdería y en cuánto tiempo se recuperaría ante un fallo.</span><span class="lang-en">Continuity risk analysis: what would be lost and how long recovery would take on failure.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PHASE 3: SOLUTION -->
+    <div class="phase reveal">
+      <div>
+        <div class="num">03</div>
+        <h4><span class="lang-es">La solución</span><span class="lang-en">The solution</span></h4>
+      </div>
+      <div class="body">
+        <p><span class="lang-es">Diseñé y monté una plataforma híbrida sobre cinco pilares, cada uno atacando uno de los puntos de dolor detectados:</span><span class="lang-en">I designed and built a hybrid platform on five pillars, each tackling one of the detected pain points:</span></p>
+        <div class="pillars">
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></span><span class="lang-es">Infraestructura híbrida</span><span class="lang-en">Hybrid infrastructure</span></h5>
+            <p><span class="lang-es">Windows Server 2022, Hyper-V, Ubuntu, RDP, red local y NAS diseñados y operados como una plataforma coherente y mantenible.</span><span class="lang-en">Windows Server 2022, Hyper-V, Ubuntu, RDP, local network and NAS designed and operated as one coherent, maintainable platform.</span></p>
+          </div>
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h5v5H7z"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg></span><span class="lang-es">Stack de tools en Docker</span><span class="lang-en">Docker tooling stack</span></h5>
+            <p><span class="lang-es">Stack de herramientas internas en Docker sobre Ubuntu, con interfaz web para automatizar procesos, formularios de gestión y tareas operativas recurrentes.</span><span class="lang-en">Internal tooling stack in Docker on Ubuntu, with a web interface to automate processes, management forms and recurring operational tasks.</span></p>
+          </div>
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></span><span class="lang-es">Correo Postfix / Dovecot</span><span class="lang-en">Postfix / Dovecot mail</span></h5>
+            <p><span class="lang-es">Solución local de correo con Dovecot y Postfix para optimizar las cuentas IMAP de Gmail compartidas, mitigando límites de cuota, conexión simultánea y conectividad.</span><span class="lang-en">Local mail solution with Dovecot and Postfix to optimize shared Gmail IMAP accounts, mitigating quota, simultaneous-connection and connectivity limits.</span></p>
+          </div>
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg></span><span class="lang-es">Backup &amp; DR</span><span class="lang-en">Backup &amp; DR</span></h5>
+            <p><span class="lang-es">Estrategia de continuidad con backups de VMs, host físico, servidores Linux y NAS, snapshots y copia externa cifrada en Backblaze B2.</span><span class="lang-en">Continuity strategy with backups of VMs, physical host, Linux servers and NAS, snapshots and encrypted off-site copies in Backblaze B2.</span></p>
+          </div>
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg></span><span class="lang-es">Monitoreo &amp; panel de control</span><span class="lang-en">Monitoring &amp; control panel</span></h5>
+            <p><span class="lang-es">Monitorización del entorno y panel web para lanzar y supervisar procesos, con visibilidad de rendimiento, sesiones y consumo de recursos.</span><span class="lang-en">Environment monitoring and a web panel to launch and supervise processes, with visibility into performance, sessions and resource usage.</span></p>
+          </div>
+          <div class="pillar">
+            <h5><span class="pi"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M9 20h6"/><path d="M8 9l2 2 4-4"/></svg></span><span class="lang-es">Runbooks &amp; documentación</span><span class="lang-en">Runbooks &amp; docs</span></h5>
+            <p><span class="lang-es">Runbooks, procedimientos de recuperación, planes de migración y validaciones operativas para estandarizar el soporte técnico.</span><span class="lang-en">Runbooks, recovery procedures, migration plans and operational validations to standardize technical support.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: DEV & DEPLOY -->
+    <div class="phase reveal">
+      <div>
+        <div class="num">04</div>
+        <h4><span class="lang-es">Desarrollo y despliegue</span><span class="lang-en">Development &amp; deployment</span></h4>
+      </div>
+      <div class="body">
+        <p><span class="lang-es">Llevé cada pilar a producción de forma incremental y verificable, sin interrumpir la operación diaria y dejando todo documentado y reproducible:</span><span class="lang-en">I took each pillar to production incrementally and verifiably, without disrupting daily operations and leaving everything documented and reproducible:</span></p>
+        <ul class="tick-list">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Contenización de las herramientas internas en Docker e interfaz web para los formularios y automatizaciones.</span><span class="lang-en">Containerized the internal tools in Docker with a web interface for the forms and automations.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Automatización de tareas recurrentes con PowerShell, Bash y Python para eliminar trabajo manual.</span><span class="lang-en">Automated recurring tasks with PowerShell, Bash and Python to remove manual work.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Despliegue y validación del correo local Postfix/Dovecot sobre las cuentas IMAP compartidas.</span><span class="lang-en">Deployed and validated local Postfix/Dovecot mail over the shared IMAP accounts.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Puesta en marcha del backup 3-2-1 con snapshots y copia externa en Backblaze B2, con restauraciones probadas.</span><span class="lang-en">Rolled out 3-2-1 backup with snapshots and off-site copy in Backblaze B2, with tested restores.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Diagnóstico continuo de red, RDP, DNS, TCP e ISP con PowerShell, Bash y herramientas de troubleshooting.</span><span class="lang-en">Continuous diagnosis of network, RDP, DNS, TCP and ISP with PowerShell, Bash and troubleshooting tools.</span></li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span class="lang-es">Documentación de runbooks, procedimientos de recuperación y validaciones operativas para el equipo.</span><span class="lang-en">Documented runbooks, recovery procedures and operational validations for the team.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PHASE 5: RESULTS -->
+    <div class="phase reveal">
+      <div>
+        <div class="num">05</div>
+        <h4><span class="lang-es">Resultados</span><span class="lang-en">Outcomes</span></h4>
+      </div>
+      <div class="body">
+        <div class="results">
+          <div class="rcard">
+            <div class="ri"><svg viewBox="0 0 24 24"><path d="M14 4l-2 4h4l-4 8"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <b><span class="lang-es">Menos trabajo manual</span><span class="lang-en">Less manual work</span></b>
+            <p><span class="lang-es">Procesos recurrentes automatizados vía panel web.</span><span class="lang-en">Recurring processes automated via a web panel.</span></p>
+          </div>
+          <div class="rcard">
+            <div class="ri"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg></div>
+            <b><span class="lang-es">Continuidad garantizada</span><span class="lang-en">Continuity in place</span></b>
+            <p><span class="lang-es">Backup 3-2-1 con copia externa y restauración probada.</span><span class="lang-en">3-2-1 backup with off-site copy and tested restore.</span></p>
+          </div>
+          <div class="rcard">
+            <div class="ri"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></div>
+            <b><span class="lang-es">Correo estabilizado</span><span class="lang-en">Email stabilized</span></b>
+            <p><span class="lang-es">Fin de los límites de cuota y conexión en las cuentas compartidas.</span><span class="lang-en">No more quota and connection limits on shared accounts.</span></p>
+          </div>
+          <div class="rcard">
+            <div class="ri"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4z"/><path d="M9 20h6"/><path d="M8 9l2 2 4-4"/></svg></div>
+            <b><span class="lang-es">Soporte estandarizado</span><span class="lang-en">Standardized support</span></b>
+            <p><span class="lang-es">Runbooks que hacen la operación repetible y menos dependiente de personas.</span><span class="lang-en">Runbooks that make operations repeatable and less person-dependent.</span></p>
+          </div>
+        </div>
+        <p style="margin-top:22px"><span class="lang-es"><strong>Stack empleado:</strong></span><span class="lang-en"><strong>Stack used:</strong></span></p>
+        <div class="stack-used">
+          <span class="chip">Windows Server 2022</span>
+          <span class="chip">Hyper-V</span>
+          <span class="chip">Ubuntu</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Postfix</span>
+          <span class="chip">Dovecot</span>
+          <span class="chip">PowerShell</span>
+          <span class="chip">Bash</span>
+          <span class="chip">Python</span>
+          <span class="chip">NAS</span>
+          <span class="chip">Backblaze B2</span>
+          <span class="chip">RDP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-pad" id="sobre-mi">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow"><span class="lang-es">Sobre mí</span><span class="lang-en">About</span></span>
+      <h2 class="sec-title"><span class="lang-es">Ingeniero que convierte el caos operativo en sistemas fiables</span><span class="lang-en">An engineer who turns operational chaos into reliable systems</span></h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="avatar">MP</div>
+        <h3>Miguel del Pino</h3>
+        <div class="role">Infrastructure &amp; Automation Engineer / SRE</div>
+        <div class="meta">
+          <div><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span class="lang-es">Algeciras, España · remoto</span><span class="lang-en">Algeciras, Spain · remote</span></div>
+          <div><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg><span>mapinoma@gmail.com</span></div>
+          <div><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>+34 613 051 945</span></div>
+          <div><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><line x1="8" y1="10" x2="8" y2="16"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M12 13a2 2 0 0 1 4 0v3"/><line x1="8" y1="7.5" x2="8" y2="7.5"/></svg><span>linkedin.com/in/migueldelpinomaya</span></div>
+        </div>
+        <div class="meta">
+          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg><span class="lang-es">Español (nativo) · Inglés (fluido)</span><span class="lang-en">Spanish (native) · English (fluent)</span></div>
+        </div>
+      </div>
+
+      <div class="about-body reveal">
+        <p><span class="lang-es">Llevo más de 5 años diseñando, automatizando y operando infraestructura cloud e híbrida. Mi trabajo consiste en tomar entornos que dependen de tareas manuales y conocimiento tribal y convertirlos en <strong>sistemas fiables, automatizados y documentados</strong>: menos trabajo repetitivo, menos downtime y una operación que el equipo puede sostener sin sobresaltos.</span><span class="lang-en">For 5+ years I've been designing, automating and operating cloud and hybrid infrastructure. My job is taking environments that depend on manual tasks and tribal knowledge and turning them into <strong>reliable, automated and documented systems</strong>: less repetitive work, less downtime and operations the team can sustain without surprises.</span></p>
+        <p><span class="lang-es">Trabajo con Windows y Linux, Azure, Docker, Terraform y Ansible, y con lenguajes de scripting como PowerShell, Bash y Python. Me muevo con soltura entre el diseño de arquitectura, el troubleshooting de incidencias críticas y la documentación operativa que hace que todo sea mantenible.</span><span class="lang-en">I work across Windows and Linux, Azure, Docker, Terraform and Ansible, and with scripting languages like PowerShell, Bash and Python. I move comfortably between architecture design, critical-incident troubleshooting and the operational documentation that keeps everything maintainable.</span></p>
+
+        <div class="timeline">
+          <div class="tl">
+            <div class="when">Jul 2025 — <span class="lang-es">Presente</span><span class="lang-en">Present</span></div>
+            <h4>SRE / Infrastructure &amp; Automation Consultant</h4>
+            <div class="co">Total Logistic / <span class="lang-es">Cliente privado, España</span><span class="lang-en">Private client, Spain</span></div>
+            <p><span class="lang-es">Diseño y operación de infraestructura híbrida, stack de herramientas en Docker, correo Postfix/Dovecot, backup &amp; DR con Backblaze B2, monitorización y runbooks.</span><span class="lang-en">Design and operation of hybrid infrastructure, a Docker tooling stack, Postfix/Dovecot mail, backup &amp; DR with Backblaze B2, monitoring and runbooks.</span></p>
+          </div>
+          <div class="tl">
+            <div class="when">Jul 2020 — Jul 2025</div>
+            <h4>Senior Site Reliability / Automation Engineer</h4>
+            <div class="co">Netrix Global, Barcelona</div>
+            <p><span class="lang-es">Migraciones on-prem → Azure, automatizaciones multi-entorno, reducción del trabajo manual ~30% y del downtime ~25%, gestión de incidentes y on-call.</span><span class="lang-en">On-prem → Azure migrations, multi-environment automation, ~30% less manual work and ~25% less downtime, incident management and on-call.</span></p>
+          </div>
+          <div class="tl">
+            <div class="when">Jun 2019 — Jul 2020</div>
+            <h4>Site Reliability Operator</h4>
+            <div class="co">Edrans, Barcelona</div>
+            <p><span class="lang-es">Monitorización de aplicaciones en Azure, triaje de alertas y automatización de tareas de soporte recurrentes (~20%).</span><span class="lang-en">Monitoring of Azure-hosted applications, alert triage and automation of recurring support tasks (~20%).</span></p>
+          </div>
+          <div class="tl">
+            <div class="when">Nov 2015 — Nov 2018</div>
+            <h4><span class="lang-es">Administrador de Sistemas</span><span class="lang-en">System Administrator</span></h4>
+            <div class="co">FRS Iberia / Maroc, Tarifa</div>
+            <p><span class="lang-es">Administración de servidores Windows y Linux, virtualización, redes y soporte 24/7 a usuarios e infraestructura.</span><span class="lang-en">Windows and Linux server administration, virtualization, networking and 24/7 support for users and infrastructure.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact section-pad" id="contacto">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="sec-eyebrow"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></span>
+      <h2><span class="lang-es">¿Tienes un reto de infraestructura o automatización?</span><span class="lang-en">Got an infrastructure or automation challenge?</span></h2>
+      <p class="lead"><span class="lang-es">Cuéntame qué necesitas estabilizar, automatizar o migrar. Te respondo con un primer diagnóstico y los siguientes pasos.</span><span class="lang-en">Tell me what you need to stabilize, automate or migrate. I'll reply with an initial diagnosis and the next steps.</span></p>
+      <div class="contact-list">
+        <a class="contact-item" href="mailto:mapinoma@gmail.com">
+          <span class="ci"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg></span>
+          <span><span class="k">Email</span><br/><span class="v">mapinoma@gmail.com</span></span>
+        </a>
+        <a class="contact-item" href="tel:+34613051945">
+          <span class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l4 1v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+          <span><span class="k"><span class="lang-es">Teléfono</span><span class="lang-en">Phone</span></span><br/><span class="v">+34 613 051 945</span></span>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/migueldelpinomaya/" target="_blank" rel="noopener">
+          <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="10" x2="8" y2="16"/><line x1="8" y1="7.2" x2="8" y2="7.2"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/><line x1="12" y1="10" x2="12" y2="16"/></svg></span>
+          <span><span class="k">LinkedIn</span><br/><span class="v">in/migueldelpinomaya</span></span>
+        </a>
+        <div class="contact-item" style="cursor:default">
+          <span class="ci"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+          <span><span class="k"><span class="lang-es">Ubicación</span><span class="lang-en">Location</span></span><br/><span class="v"><span class="lang-es">Algeciras, España · disponible en remoto</span><span class="lang-en">Algeciras, Spain · available remote</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <form class="form reveal" onsubmit="return sendMail(event)">
+      <div class="row">
+        <label for="f-name"><span class="lang-es">Nombre</span><span class="lang-en">Name</span></label>
+        <input id="f-name" type="text" required placeholder="..." />
+      </div>
+      <div class="row">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" required placeholder="tu@empresa.com" />
+      </div>
+      <div class="row">
+        <label for="f-msg"><span class="lang-es">¿En qué puedo ayudarte?</span><span class="lang-en">How can I help?</span></label>
+        <textarea id="f-msg" required placeholder="..."></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">
+        <span class="lang-es">Enviar mensaje</span><span class="lang-en">Send message</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <a href="#top" class="brand">
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#04121f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 3 12 8 18"/><polyline points="16 6 21 12 16 18"/></svg></span>
+        <b>CodeEngTools</b>
+      </a>
+      <p style="margin-top:8px">© <span id="year">2026</span> Miguel del Pino · <span class="lang-es">Infrastructure &amp; Automation Engineering</span><span class="lang-en">Infrastructure &amp; Automation Engineering</span></p>
+    </div>
+    <div class="foot-social">
+      <a href="mailto:mapinoma@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg></a>
+      <a href="tel:+34613051945" aria-label="Phone"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l4 1v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+      <a href="https://www.linkedin.com/in/migueldelpinomaya/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="10" x2="8" y2="16"/><line x1="8" y1="7.2" x2="8" y2="7.2"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/><line x1="12" y1="10" x2="12" y2="16"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// language toggle (in-memory only)
+function setLang(l){
+  document.body.classList.toggle('en', l === 'en');
+  document.documentElement.lang = l;
+  document.getElementById('btn-es').classList.toggle('active', l === 'es');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+}
+// mailto helper
+function sendMail(e){
+  e.preventDefault();
+  var n = document.getElementById('f-name').value;
+  var em = document.getElementById('f-email').value;
+  var m = document.getElementById('f-msg').value;
+  var en = document.body.classList.contains('en');
+  var subject = encodeURIComponent((en?'Contact from CodeEngTools — ':'Contacto CodeEngTools — ') + n);
+  var body = encodeURIComponent((en?'Name: ':'Nombre: ') + n + '\nEmail: ' + em + '\n\n' + m);
+  window.location.href = 'mailto:mapinoma@gmail.com?subject=' + subject + '&body=' + body;
+  return false;
+}
+// close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(function(a){
+  a.addEventListener('click', function(){ document.getElementById('navLinks').classList.remove('open'); });
+});
+// scroll reveal (with graceful fallbacks so content is never left hidden)
+var reveals = document.querySelectorAll('.reveal');
+function revealAll(){ reveals.forEach(function(el){ el.classList.add('in'); }); }
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.08, rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach(function(el){ io.observe(el); });
+  // safety net: never leave anything hidden
+  window.addEventListener('load', function(){ setTimeout(revealAll, 2500); });
+} else {
+  revealAll();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+# Editores
+.vscode/
+.idea/
+*.swp
+# Deps / logs (por si añades tooling)
+node_modules/
+*.log
+.wrangler/

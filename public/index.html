@@ -197,6 +197,11 @@ h2.sec-title{font-size:clamp(1.7rem,3.2vw,2.35rem);letter-spacing:-.8px;font-wei
 .tl h4{margin:4px 0 2px;font-size:1.05rem;font-weight:700}
 .tl .co{color:var(--accent);font-size:.92rem;margin-bottom:6px}
 .tl p{margin:0;color:var(--muted);font-size:.94rem}
+.tl-lead{color:#cbd6e8;font-weight:500}
+.tl-points{list-style:none;padding:0;margin:9px 0 0;display:grid;gap:7px}
+.tl-points li{position:relative;padding-left:16px;color:var(--muted);font-size:.9rem;line-height:1.5}
+.tl-points li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.75}
+.tl-now{display:inline-block;margin-left:6px;vertical-align:middle;font-family:var(--mono);font-size:.6rem;letter-spacing:.5px;text-transform:uppercase;color:var(--accent-3);border:1px solid var(--border-strong);border-radius:999px;padding:1px 7px}
 
 /* ---------- CONTACT ---------- */
 .contact{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(129,140,248,.06));border-top:1px solid var(--border)}
@@ -593,7 +598,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
         <div class="meta">
           <div><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span class="lang-es">Cádiz, España · remoto</span><span class="lang-en">Cádiz, Spain · remote</span></div>
           <div><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M4 8l8 5 8-5"/></svg><span>miguel.pino@codeengtools.eu</span></div>
-          <div><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>+34  623 796 366</span></div>
+          <div><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>+34 623 796 366</span></div>
           <div><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><line x1="8" y1="10" x2="8" y2="16"/><line x1="12" y1="16" x2="12" y2="11"/><path d="M12 13a2 2 0 0 1 4 0v3"/><line x1="8" y1="7.5" x2="8" y2="7.5"/></svg><span>linkedin.com/in/migueldelpinomaya</span></div>
         </div>
         <div class="meta">
@@ -607,28 +612,52 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
 
         <div class="timeline">
           <div class="tl">
-            <div class="when">Jul 2025 — <span class="lang-es">Presente</span><span class="lang-en">Present</span></div>
+            <div class="when">Jul 2025 — <span class="lang-es">Presente</span><span class="lang-en">Present</span> <span class="tl-now"><span class="lang-es">Actual</span><span class="lang-en">Current</span></span></div>
             <h4>SRE / Infrastructure &amp; Automation Consultant</h4>
             <div class="co">Total Logistic / <span class="lang-es">Cliente privado, España</span><span class="lang-en">Private client, Spain</span></div>
-            <p><span class="lang-es">Diseño y operación de infraestructura híbrida, stack de herramientas en Docker, correo Postfix/Dovecot, backup &amp; DR con Backblaze B2, monitorización y runbooks.</span><span class="lang-en">Design and operation of hybrid infrastructure, a Docker tooling stack, Postfix/Dovecot mail, backup &amp; DR with Backblaze B2, monitoring and runbooks.</span></p>
+            <p class="tl-lead"><span class="lang-es">Responsable end-to-end de la infraestructura híbrida de un entorno empresarial: del diseño y la operación a la automatización, la continuidad y el soporte.</span><span class="lang-en">End-to-end owner of an enterprise's hybrid infrastructure: from design and operation to automation, continuity and support.</span></p>
+            <ul class="tl-points">
+              <li><span class="lang-es">Diseño y operación de infraestructura híbrida Windows/Linux: Windows Server 2022, Hyper-V, Ubuntu, RDP multiusuario, red local y NAS.</span><span class="lang-en">Design and operation of hybrid Windows/Linux infrastructure: Windows Server 2022, Hyper-V, Ubuntu, multi-user RDP, local network and NAS.</span></li>
+              <li><span class="lang-es">Stack de herramientas internas en Docker con interfaz web para automatizar procesos, formularios de gestión y tareas operativas recurrentes.</span><span class="lang-en">Internal tooling stack in Docker with a web interface to automate processes, management forms and recurring operational tasks.</span></li>
+              <li><span class="lang-es">Solución de correo local con Postfix y Dovecot para optimizar cuentas IMAP/Gmail compartidas: cuota, conexión simultánea y conectividad.</span><span class="lang-en">Local Postfix/Dovecot mail solution to optimize shared IMAP/Gmail accounts: quota, simultaneous connections and connectivity.</span></li>
+              <li><span class="lang-es">Estrategia de backup &amp; DR: VMs, host físico, servidores Linux, NAS, snapshots y copia externa cifrada en Backblaze B2.</span><span class="lang-en">Backup &amp; DR strategy: VMs, physical host, Linux servers, NAS, snapshots and encrypted off-site copies in Backblaze B2.</span></li>
+              <li><span class="lang-es">Troubleshooting de red, RDP, DNS, TCP e ISP con PowerShell y Bash, más runbooks y procedimientos de recuperación para estandarizar el soporte.</span><span class="lang-en">Network, RDP, DNS, TCP and ISP troubleshooting with PowerShell and Bash, plus runbooks and recovery procedures to standardize support.</span></li>
+            </ul>
           </div>
           <div class="tl">
             <div class="when">Jul 2020 — Jul 2025</div>
             <h4>Senior Site Reliability / Automation Engineer</h4>
             <div class="co">Netrix Global, Barcelona</div>
-            <p><span class="lang-es">Migraciones on-prem → Azure, automatizaciones multi-entorno, reducción del trabajo manual ~30% y del downtime ~25%, gestión de incidentes y on-call.</span><span class="lang-en">On-prem → Azure migrations, multi-environment automation, ~30% less manual work and ~25% less downtime, incident management and on-call.</span></p>
+            <p class="tl-lead"><span class="lang-es">Fiabilidad y automatización de servicios empresariales en Azure, liderando migraciones y despliegues críticos con guardias on-call.</span><span class="lang-en">Reliability and automation of enterprise services on Azure, leading migrations and critical deployments with on-call duty.</span></p>
+            <ul class="tl-points">
+              <li><span class="lang-es">Migraciones on-premises → Azure re-arquitectando cargas (VMs, VNets, Load Balancers, Entra ID, App Services, Functions).</span><span class="lang-en">On-premises → Azure migrations, re-architecting workloads (VMs, VNets, Load Balancers, Entra ID, App Services, Functions).</span></li>
+              <li><span class="lang-es">Pipelines CI/CD en Azure DevOps e IaC con Terraform para provisioning reproducible y despliegues multi-entorno.</span><span class="lang-en">CI/CD pipelines in Azure DevOps and Terraform IaC for reproducible provisioning and multi-environment deployments.</span></li>
+              <li><span class="lang-es">Observabilidad con Azure Monitor, Datadog y AppDynamics; runbooks y alertado que redujeron el downtime ~25%.</span><span class="lang-en">Observability with Azure Monitor, Datadog and AppDynamics; runbooks and alerting that cut downtime ~25%.</span></li>
+              <li><span class="lang-es">Automatización de tareas recurrentes (Python, Bash, PowerShell) reduciendo el trabajo manual (toil) ~30%.</span><span class="lang-en">Automation of recurring tasks (Python, Bash, PowerShell) reducing manual work (toil) ~30%.</span></li>
+              <li><span class="lang-es">Gestión de incidentes y on-call coordinando Dev/Ops/Seguridad; patching, revisiones RBAC y hardening del ciclo de vida.</span><span class="lang-en">Incident management and on-call coordinating Dev/Ops/Security; patching, RBAC reviews and lifecycle hardening.</span></li>
+            </ul>
           </div>
           <div class="tl">
             <div class="when">Jun 2019 — Jul 2020</div>
             <h4>Site Reliability Operator</h4>
             <div class="co">Edrans, Barcelona</div>
-            <p><span class="lang-es">Monitorización de aplicaciones en Azure, triaje de alertas y automatización de tareas de soporte recurrentes (~20%).</span><span class="lang-en">Monitoring of Azure-hosted applications, alert triage and automation of recurring support tasks (~20%).</span></p>
+            <p class="tl-lead"><span class="lang-es">Operación y observabilidad de aplicaciones en Azure, con foco en respuesta a incidentes y automatización del soporte.</span><span class="lang-en">Operations and observability of Azure-hosted applications, focused on incident response and support automation.</span></p>
+            <ul class="tl-points">
+              <li><span class="lang-es">Monitorización de disponibilidad en Azure, triaje de alertas y escalado hasta la resolución.</span><span class="lang-en">Availability monitoring on Azure, alert triage and escalation through to resolution.</span></li>
+              <li><span class="lang-es">Automatización de tareas de soporte recurrentes, reduciendo intervenciones manuales ~20%.</span><span class="lang-en">Automation of recurring support tasks, reducing manual intervention ~20%.</span></li>
+              <li><span class="lang-es">Mejora de la documentación interna y de los estándares de operación para acelerar el diagnóstico.</span><span class="lang-en">Improved internal documentation and operational standards to speed up diagnosis.</span></li>
+            </ul>
           </div>
           <div class="tl">
             <div class="when">Nov 2015 — Nov 2018</div>
             <h4><span class="lang-es">Administrador de Sistemas</span><span class="lang-en">System Administrator</span></h4>
             <div class="co">FRS Iberia / Maroc, Tarifa</div>
-            <p><span class="lang-es">Administración de servidores Windows y Linux, virtualización, redes y soporte 24/7 a usuarios e infraestructura.</span><span class="lang-en">Windows and Linux server administration, virtualization, networking and 24/7 support for users and infrastructure.</span></p>
+            <p class="tl-lead"><span class="lang-es">Administración y soporte 24/7 de infraestructura Windows/Linux en un entorno operativo crítico.</span><span class="lang-en">24/7 administration and support of Windows/Linux infrastructure in a critical operational environment.</span></p>
+            <ul class="tl-points">
+              <li><span class="lang-es">Administración de servidores Windows y Linux, virtualización y operación diaria de la infraestructura.</span><span class="lang-en">Windows and Linux server administration, virtualization and day-to-day infrastructure operations.</span></li>
+              <li><span class="lang-es">Gestión de red y troubleshooting aplicando buenas prácticas de seguridad.</span><span class="lang-en">Network management and troubleshooting applying security best practices.</span></li>
+              <li><span class="lang-es">Desarrollo de herramientas internas y soporte 24/7 a usuarios e infraestructura.</span><span class="lang-en">Building internal tools and 24/7 support for users and infrastructure.</span></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -650,7 +679,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
         </a>
         <a class="contact-item" href="tel:+34623796366">
           <span class="ci"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l4 1v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
-          <span><span class="k"><span class="lang-es">Teléfono</span><span class="lang-en">Phone</span></span><br/><span class="v">+34  623 796 366</span></span>
+          <span><span class="k"><span class="lang-es">Teléfono</span><span class="lang-en">Phone</span></span><br/><span class="v">+34 623 796 366</span></span>
         </a>
         <a class="contact-item" href="https://www.linkedin.com/in/migueldelpinomaya/" target="_blank" rel="noopener">
           <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="8" y1="10" x2="8" y2="16"/><line x1="8" y1="7.2" x2="8" y2="7.2"/><path d="M12 16v-3a2 2 0 0 1 4 0v3"/><line x1="12" y1="10" x2="12" y2="16"/></svg></span>

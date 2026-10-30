@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Breather — Ejercicios de respiración guiados · CodeEngTools</title>
+<meta name="description" content="Breather: respiración guiada por propósito. Calmarte, dormir, enfocarte o activarte, con diecisiete patrones conocidos. Local-first: tus datos viven en tu móvil. Beta privada." />
+<meta name="theme-color" content="#080c15" />
+<link rel="canonical" href="https://codeengtools.eu/breather/" />
+<link rel="icon" type="image/svg+xml" href="/breather/favicon.svg" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="CodeEngTools" />
+<meta property="og:title" content="Breather — respira guiado, sin pensar en cómo" />
+<meta property="og:description" content="Respiración guiada por propósito, con diecisiete patrones. Local-first y sin cuenta. Beta privada." />
+<meta property="og:url" content="https://codeengtools.eu/breather/" />
+<meta property="og:image" content="https://codeengtools.eu/breather/sesion.webp" />
+<link rel="alternate" hreflang="es" href="https://codeengtools.eu/breather/?lang=es" />
+<link rel="alternate" hreflang="en" href="https://codeengtools.eu/breather/?lang=en" />
+<link rel="alternate" hreflang="x-default" href="https://codeengtools.eu/breather/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#080c15;--bg-2:#0b1120;--surface:#0f1729;--surface-2:#131d33;
+  --border:rgba(148,163,184,.14);--border-strong:rgba(148,163,184,.28);
+  --text:#e8eef8;--muted:#93a4bd;--muted-2:#6b7c96;
+  --a:#f472b6;--a-dim:rgba(244,114,182,.13);--a-line:rgba(244,114,182,.38);
+  --ember:#f87171;--ember-line:rgba(248,113,113,.38);
+  --radius:18px;--maxw:1140px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(900px 600px at 80% -10%,rgba(244,114,182,.10),transparent 60%),
+  radial-gradient(700px 600px at 5% 20%,rgba(129,140,248,.07),transparent 55%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.5;pointer-events:none;
+  background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(closest-side at 50% 40%,#000 40%,transparent 92%)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.lang-en{display:none}
+body.en .lang-es{display:none}
+body.en .lang-en{display:revert}
+.mono{font-family:var(--mono)}
+.caps{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(8,12,21,.75);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;border-radius:9px;border:1px solid var(--a-line);background:#080c15;display:grid;place-items:center}
+.logo svg{width:24px;height:24px}
+.brand .name{font-family:var(--mono);font-weight:700;letter-spacing:.22em;font-size:1.05rem}
+.brand .by{display:block;font-family:var(--mono);font-size:.66rem;color:var(--muted-2);letter-spacing:.06em;margin-top:-2px}
+.nav-right{display:flex;align-items:center;gap:18px}
+.nav-right a.back{color:var(--muted);font-size:.88rem}
+.nav-right a.back:hover{color:var(--text)}
+.langbtn{display:inline-flex;border:1px solid var(--border-strong);overflow:hidden;font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.1em}
+.langbtn button{background:transparent;color:var(--muted);border:0;padding:7px 12px;cursor:pointer}
+.langbtn button.active{background:var(--a);color:#180a11}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.93rem;padding:12px 20px;border-radius:11px;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:filter .2s,background .2s,transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn-a{background:var(--a);color:#180a11;box-shadow:0 12px 30px -14px rgba(244,114,182,.7)}
+.btn-a:hover{filter:brightness(1.08)}
+.btn-ghost{background:rgba(148,163,184,.06);border-color:var(--border-strong);color:var(--text)}
+.btn-ghost:hover{background:rgba(148,163,184,.12)}
+
+/* HERO */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.eyebrow{color:var(--a);font-size:.8rem;font-weight:700}
+.eyebrow .dot{display:inline-block;width:8px;height:8px;background:var(--a);margin-right:10px;animation:blink 1.6s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+h1{font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.05;letter-spacing:-1.4px;font-weight:800;margin:18px 0 18px}
+h1 em{font-style:normal;color:var(--a)}
+.lead{color:var(--muted);font-size:1.1rem;max-width:560px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.cta-note{flex:0 0 100%;margin:6px 0 0;font-size:.78rem;line-height:1.45;color:var(--muted-2);text-align:right}
+.timer{margin-top:40px;padding-top:22px;border-top:1px solid var(--border);display:flex;gap:36px;flex-wrap:wrap}
+.timer .k{font-size:.72rem;color:var(--muted-2)}
+.timer .v{font-family:var(--mono);font-weight:700;font-size:1.7rem;letter-spacing:.04em}
+.timer .v.a{color:var(--a)}
+
+/* PHONE */
+.phone{justify-self:center;width:300px;max-width:100%;border-radius:38px;padding:10px;background:linear-gradient(180deg,#1a2235,#0c1220);border:1px solid var(--border-strong);box-shadow:0 40px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(244,114,182,.08),0 0 120px -40px rgba(244,114,182,.35)}
+.phone img{border-radius:29px;width:100%}
+
+/* SECTIONS */
+.sec{padding:72px 0}
+.sec-head{max-width:660px;margin-bottom:40px}
+.sec-eyebrow{font-size:.78rem;color:var(--a);font-weight:700}
+h2{font-size:clamp(1.7rem,3.2vw,2.3rem);letter-spacing:-.8px;font-weight:800;margin:12px 0;line-height:1.12}
+.sub{color:var(--muted);font-size:1.03rem;margin:0}
+
+/* PURPOSES */
+.stages{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.stage{padding:22px 20px;border-right:1px solid var(--border);position:relative}
+.stage:last-child{border-right:0}
+.stage .h{font-family:var(--mono);color:var(--muted-2);font-size:.85rem}
+.stage .t{font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin:6px 0 6px;font-size:1rem}
+.stage p{color:var(--muted);font-size:.88rem;margin:0}
+.stage.on{background:var(--a-dim)}
+.stage.on::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--a)}
+.stage.on .h,.stage.on .t{color:var(--a)}
+.stage.warn .t{color:var(--ember)}
+.stage.warn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ember)}
+.note{font-size:.8rem;color:var(--muted-2);margin-top:14px}
+
+/* SHOTS */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.shot{margin:0;display:flex;flex-direction:column;gap:20px}
+.shot .frame{border-radius:30px;padding:8px;background:linear-gradient(180deg,#1a2235,#0c1220);border:1px solid var(--border-strong);box-shadow:0 30px 70px -30px rgba(0,0,0,.85);max-width:280px;width:100%;margin:0 auto}
+.shot .frame img{border-radius:23px;width:100%}
+.shot .tab{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;color:var(--a);font-weight:700}
+.shot h3{margin:8px 0 6px;font-size:1.08rem;letter-spacing:-.2px}
+.shot p{margin:0;color:var(--muted);font-size:.93rem}
+
+/* PRINCIPLES */
+.princ{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pr{border-top:2px solid var(--a);padding-top:18px}
+.pr .n{font-family:var(--mono);color:var(--a);font-size:.8rem;letter-spacing:.14em}
+.pr h3{margin:8px 0 8px;font-size:1.15rem}
+.pr p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* PLATFORMS */
+.plats{display:flex;flex-wrap:wrap;gap:12px}
+.plat{display:flex;align-items:center;gap:12px;border:1px solid var(--border);background:var(--surface);border-radius:12px;padding:14px 18px;min-width:220px}
+.plat b{font-weight:700}
+.plat .st{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--border-strong);color:var(--muted)}
+.plat .st.ok{color:var(--a);border-color:var(--a-line);background:var(--a-dim)}
+
+/* ACCESS */
+.access{border:1px solid var(--a-line);border-radius:var(--radius);background:linear-gradient(135deg,rgba(244,114,182,.10),rgba(15,23,41,.6));padding:40px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.access h2{margin-top:6px}
+.access .cta{justify-content:flex-end}
+.steps{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:8px;color:var(--muted);font-size:.95rem}
+.steps li .sn{font-family:var(--mono);color:var(--a);margin-right:10px}
+
+footer{border-top:1px solid var(--border);padding:30px 0;margin-top:40px;color:var(--muted-2);font-size:.86rem}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--text)}
+
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .stages{grid-template-columns:1fr}
+  .stage{border-right:0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:56px 130px 1fr;gap:10px;align-items:baseline;padding:16px 18px}
+  .stage:last-child{border-bottom:0}
+  .stage .t{margin:0}
+  .princ{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr;gap:48px}
+  .shot figcaption{max-width:420px;margin:0 auto;text-align:center}
+  .access{grid-template-columns:1fr;padding:28px}
+  .access .cta{justify-content:flex-start}
+  .cta-note{text-align:left}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .hero{padding:44px 0 36px}
+  .nav-right a.back{display:none}
+  .stage{grid-template-columns:48px 1fr}
+  .stage p{grid-column:2}
+  .timer{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="/breather/" class="brand" aria-label="Breather">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="21" fill="none" stroke="#f472b6" stroke-opacity=".4" stroke-width="3"/><circle cx="32" cy="32" r="13.2" fill="none" stroke="#f472b6" stroke-opacity=".75" stroke-width="3.5"/><circle cx="32" cy="32" r="5.7" fill="#f472b6"/></svg></span>
+      <span><span class="name">BREATHER</span><span class="by">by CodeEngTools</span></span>
+    </a>
+    <div class="nav-right">
+      <a class="back" href="/#apps"><span class="lang-es">← Todas las apps</span><span class="lang-en">← All apps</span></a>
+      <div class="langbtn" role="group" aria-label="Language">
+        <button id="btn-es" class="active" aria-pressed="true" onclick="setLang('es')">ES</button>
+        <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow caps"><span class="dot"></span><span class="lang-es">Beta privada</span><span class="lang-en">Private beta</span></span>
+      <h1><span class="lang-es">Respira guiado,<br><em>sin pensar en cómo.</em></span><span class="lang-en">Guided breathing,<br><em>without thinking about it.</em></span></h1>
+      <p class="lead"><span class="lang-es">Eliges para qué —calmarte, dormir, enfocarte— y la app lleva el ritmo. Un círculo que crece y mengua, y una vibración en cada cambio de fase. Diecisiete patrones conocidos, ninguna cuenta y ningún dato que salga del móvil.</span><span class="lang-en">You pick what for — calm down, sleep, focus — and the app keeps the rhythm. A circle that grows and shrinks, and a buzz at every change of phase. Seventeen established patterns, no account, and no data leaving your phone.</span></p>
+      <div class="cta">
+        <a class="btn btn-a" href="#acceso"><span class="lang-es">Pedir acceso</span><span class="lang-en">Request access</span> →</a>
+        <a class="btn btn-ghost" href="https://dl.codeengtools.eu/breather/"><span class="lang-es">Ya tengo acceso</span><span class="lang-en">I already have access</span></a>
+      </div>
+      <div class="timer" aria-hidden="true">
+        <div><div class="k caps"><span class="lang-es">Patrón</span><span class="lang-en">Pattern</span></div><div class="v">4-7-8</div></div>
+        <div><div class="k caps"><span class="lang-es">Ahora</span><span class="lang-en">Now</span></div><div class="v a" id="phase">Inhala</div></div>
+        <div><div class="k caps"><span class="lang-es">Quedan</span><span class="lang-en">Left</span></div><div class="v" id="left">4</div></div>
+      </div>
+    </div>
+    <div class="phone"><img src="/breather/sesion.webp" width="640" height="1220" alt="Pantalla de sesión de Breather: el círculo lleno y la cuenta atrás de la fase" loading="eager" /></div>
+  </div>
+</section>
+
+<!-- PURPOSES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow caps"><span class="lang-es">Por qué la abres</span><span class="lang-en">Why you open it</span></span>
+      <h2><span class="lang-es">Eliges un para qué, no una técnica</span><span class="lang-en">You pick a goal, not a technique</span></h2>
+      <p class="sub"><span class="lang-es">Nadie abre una app de respiración buscando «box breathing». La abres porque no puedes dormir o porque vas acelerado. Breather empieza por ahí y la técnica la pone ella.</span><span class="lang-en">Nobody opens a breathing app looking for "box breathing". You open it because you can't sleep or because you're wound up. Breather starts there and picks the technique for you.</span></p>
+    </div>
+    <div class="stages">
+      <div class="stage on"><div class="h">7</div><div class="t"><span class="lang-es">Calmarse</span><span class="lang-en">Calm down</span></div><p><span class="lang-es">Bajar revoluciones cuando vas acelerado</span><span class="lang-en">Bring it down when you are wound up</span></p></div>
+      <div class="stage"><div class="h">5</div><div class="t"><span class="lang-es">Dormir</span><span class="lang-en">Sleep</span></div><p><span class="lang-es">Exhalaciones largas para soltar antes de la cama</span><span class="lang-en">Long exhales to let go before bed</span></p></div>
+      <div class="stage"><div class="h">6</div><div class="t"><span class="lang-es">Enfocarse</span><span class="lang-en">Focus</span></div><p><span class="lang-es">Ritmo regular para sostener la atención</span><span class="lang-en">A steady rhythm to hold your attention</span></p></div>
+      <div class="stage"><div class="h">2</div><div class="t"><span class="lang-es">Activarse</span><span class="lang-en">Wake up</span></div><p><span class="lang-es">Inhalación enfatizada para despejarte</span><span class="lang-en">Emphasised inhale to clear your head</span></p></div>
+      <div class="stage warn"><div class="h">3</div><div class="t"><span class="lang-es">Intensos</span><span class="lang-en">Intense</span></div><p><span class="lang-es">Hiperventilación y apneas, con aviso delante</span><span class="lang-en">Hyperventilation and breath holds, with a warning first</span></p></div>
+    </div>
+    <p class="note"><span class="lang-es">El número es cuántos patrones hay en cada grupo. Breather no es un producto sanitario ni sustituye el consejo de un profesional.</span><span class="lang-en">The number is how many patterns each group holds. Breather is not a medical device and does not replace professional advice.</span></p>
+  </div>
+</section>
+
+<!-- SHOTS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow caps"><span class="lang-es">Tres toques</span><span class="lang-en">Three taps</span></span>
+      <h2><span class="lang-es">De abrirla a estar respirando</span><span class="lang-en">From opening it to breathing</span></h2>
+      <p class="sub"><span class="lang-es">Sin registro, sin tutorial y sin ajustes que configurar antes de empezar.</span><span class="lang-en">No sign-up, no tutorial and no settings to configure before you start.</span></p>
+    </div>
+    <div class="shots">
+      <figure class="shot"><div class="frame"><img src="/breather/proposito.webp" width="640" height="1220" loading="lazy" alt="Pantalla de inicio de Breather con los cinco propósitos" /></div>
+        <figcaption><div class="tab"><span class="lang-es">PARA QUÉ</span><span class="lang-en">WHAT FOR</span></div><h3><span class="lang-es">La app abre preguntando</span><span class="lang-en">The app opens by asking</span></h3><p><span class="lang-es">Cinco propósitos y una línea que explica cada uno. No hay un patrón puesto por defecto que haya que cambiar.</span><span class="lang-en">Five goals and one line explaining each. There is no default pattern you have to change first.</span></p></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="/breather/patrones.webp" width="640" height="1220" loading="lazy" alt="Lista de patrones de Breather para calmarse" /></div>
+        <figcaption><div class="tab"><span class="lang-es">BIBLIOTECA</span><span class="lang-en">LIBRARY</span></div><h3><span class="lang-es">Diecisiete patrones, con su ritmo</span><span class="lang-en">Seventeen patterns, with their rhythm</span></h3><p><span class="lang-es">Box breathing, 4-7-8, suspiro fisiológico, coherente, Ujjayi, Wim Hof… cada uno con su cadencia y cómo ejecutarlo.</span><span class="lang-en">Box breathing, 4-7-8, physiological sigh, coherent, Ujjayi, Wim Hof… each with its cadence and how to run it.</span></p></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="/breather/reposo.webp" width="640" height="1220" loading="lazy" alt="Pantalla de respirar de Breather antes de empezar" /></div>
+        <figcaption><div class="tab"><span class="lang-es">RESPIRAR</span><span class="lang-en">BREATHE</span></div><h3><span class="lang-es">Una figura y nada más</span><span class="lang-en">One figure and nothing else</span></h3><p><span class="lang-es">Durante la sesión la pantalla se apaga sola y no queda nada que leer: el círculo marca el ritmo y la vibración los cambios.</span><span class="lang-en">During the session the screen dims by itself and there is nothing left to read: the circle sets the rhythm and the buzz marks the changes.</span></p></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow caps"><span class="lang-es">Cómo está hecha</span><span class="lang-en">How it's built</span></span>
+      <h2><span class="lang-es">Pensada para usarse a oscuras</span><span class="lang-en">Built to be used in the dark</span></h2>
+    </div>
+    <div class="princ">
+      <div class="pr"><div class="n">01 · LOCAL-FIRST</div><h3><span class="lang-es">Sin cuenta y sin conexión</span><span class="lang-en">No account, no connection</span></h3><p><span class="lang-es">Las sesiones se guardan en una base en tu móvil. No hay registro, no hay servidor y no hay nada que sincronizar.</span><span class="lang-en">Sessions are stored in a database on your phone. No sign-up, no server and nothing to sync.</span></p></div>
+      <div class="pr"><div class="n">02 · <span class="lang-es">POCA LUZ</span><span class="lang-en">LOW LIGHT</span></div><h3><span class="lang-es">El círculo se atenúa al crecer</span><span class="lang-en">The circle dims as it grows</span></h3><p><span class="lang-es">Un círculo grande emite más luz que uno pequeño, así que al llenarse baja la opacidad. Y la pantalla entera se apaga durante el primer minuto.</span><span class="lang-en">A big circle emits more light than a small one, so it fades as it fills. And the whole screen dims over the first minute.</span></p></div>
+      <div class="pr"><div class="n">03 · <span class="lang-es">AVISO</span><span class="lang-en">WARNING</span></div><h3><span class="lang-es">Los intensos avisan antes</span><span class="lang-en">The intense ones warn you first</span></h3><p><span class="lang-es">Kapalabhati, Bhastrika y Wim Hof hiperventilan a propósito. La primera vez que entras en ese grupo hay un aviso que hay que leer.</span><span class="lang-en">Kapalabhati, Bhastrika and Wim Hof hyperventilate on purpose. The first time you enter that group there is a warning you have to read.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="sec" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:24px">
+      <span class="sec-eyebrow caps"><span class="lang-es">Dónde funciona</span><span class="lang-en">Where it runs</span></span>
+    </div>
+    <div class="plats">
+      <div class="plat"><b>Android</b><span class="st ok"><span class="lang-es">Beta</span><span class="lang-en">Beta</span></span></div>
+      <div class="plat"><b>iPhone</b><span class="st"><span class="lang-es">Próximamente</span><span class="lang-en">Coming soon</span></span></div>
+      <div class="plat"><b>Web</b><span class="st"><span class="lang-es">Próximamente</span><span class="lang-en">Coming soon</span></span></div>
+    </div>
+    <p class="note"><span class="lang-es">Español e inglés. La app abre en el idioma del móvil y se puede cambiar desde la portada.</span><span class="lang-en">Spanish and English. The app opens in your phone's language and you can switch it from the home screen.</span></p>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section class="sec" id="acceso">
+  <div class="wrap">
+    <div class="access">
+      <div>
+        <span class="sec-eyebrow caps"><span class="lang-es">Acceso</span><span class="lang-en">Access</span></span>
+        <h2><span class="lang-es">Beta privada, por invitación</span><span class="lang-en">Private beta, by invitation</span></h2>
+        <p class="sub"><span class="lang-es">Breather se reparte a mano, a un grupo pequeño. Si respiras y quieres probarla, escríbeme.</span><span class="lang-en">Breather is handed out personally to a small group. If you breathe and want to try it, drop me a line.</span></p>
+        <ol class="steps">
+          <li><span class="sn">01</span><span class="lang-es">Me escribes con el email que usarás.</span><span class="lang-en">Email me with the address you'll use.</span></li>
+          <li><span class="sn">02</span><span class="lang-es">Te doy acceso a la descarga.</span><span class="lang-en">I give you access to the download.</span></li>
+          <li><span class="sn">03</span><span class="lang-es">Instalas el APK. La app no pide nada más.</span><span class="lang-en">You install the APK. The app asks for nothing else.</span></li>
+        </ol>
+      </div>
+      <div class="cta">
+        <a class="btn btn-a" id="mail" href="mailto:miguel.pino@codeengtools.eu?subject=Breather%20%E2%80%94%20acceso%20a%20la%20beta"><span class="lang-es">Pedir acceso</span><span class="lang-en">Request access</span> →</a>
+        <a class="btn btn-ghost" href="https://dl.codeengtools.eu/breather/"><span class="lang-es">Descargar el APK</span><span class="lang-en">Download the APK</span></a>
+        <p class="cta-note"><span class="lang-es">Te pedirá tu email. Si todavía no te he dado acceso, no pasarás de la puerta.</span><span class="lang-en">It will ask for your email. If I haven't given you access yet, you won't get past the gate.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>Breather · <span class="lang-es">una app de</span><span class="lang-en">an app by</span> <a href="/">CodeEngTools</a></span>
+    <span><a href="/#apps"><span class="lang-es">Más apps</span><span class="lang-en">More apps</span></a> · <a href="/fastrack/">Fastrack</a> · <a href="https://rawtrainer.eu/" target="_blank" rel="noopener">RawTrainer</a></span>
+  </div>
+</footer>
+
+<script>
+function setLang(l, updateUrl){
+  var en = (l === 'en');
+  document.body.classList.toggle('en', en);
+  document.documentElement.lang = l;
+  ['es','en'].forEach(function(x){ var b=document.getElementById('btn-'+x); b.classList.toggle('active', x===l); b.setAttribute('aria-pressed', String(x===l)); });
+  var m=document.getElementById('mail');
+  if(m) m.href='mailto:miguel.pino@codeengtools.eu?subject='+encodeURIComponent(en?'Breather — beta access':'Breather — acceso a la beta');
+  try{ localStorage.setItem('lang', l); }catch(e){}
+  if(updateUrl !== false){ try{ var u=new URL(location.href); u.searchParams.set('lang', l); history.replaceState(null,'',u.toString()); }catch(e){} }
+}
+(function(){
+  try{
+    var q=new URLSearchParams(location.search).get('lang'), saved=null;
+    try{ saved=localStorage.getItem('lang'); }catch(e){}
+    var nav=(navigator.language||'es').toLowerCase().slice(0,2);
+    var l=(q==='en'||q==='es')?q:(saved==='en'||saved==='es')?saved:(nav==='en'?'en':'es');
+    if(l==='en') setLang('en', false);
+  }catch(e){}
+})();
+// el 4-7-8 del hero corre de verdad, con sus tiempos
+(function(){
+  var fase=document.getElementById('phase'), quedan=document.getElementById('left');
+  if(!fase||!quedan) return;
+  var pasos=[{es:'Inhala',en:'Breathe in',s:4},{es:'Sostén',en:'Hold',s:7},{es:'Exhala',en:'Breathe out',s:8}];
+  var i=0, t=pasos[0].s;
+  function pinta(){
+    var en=document.body.classList.contains('en');
+    fase.textContent=en?pasos[i].en:pasos[i].es;
+    quedan.textContent=t;
+  }
+  pinta();
+  setInterval(function(){
+    t--;
+    if(t<=0){ i=(i+1)%pasos.length; t=pasos[i].s; }
+    pinta();
+  },1000);
+})();
+</script>
+</body>
+</html>

@@ -95,13 +95,15 @@ body.en .lang-en{display:revert}
 
 
 /* ---------- APPS ---------- */
-.apps-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:20px}
+.apps-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.apps-grid .app-card.rt{grid-column:1/-1}
 .app-card{--a:var(--accent);--a-dim:rgba(56,189,248,.12);--a-line:rgba(56,189,248,.35);background:linear-gradient(180deg,var(--surface),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .25s}
 .app-card:hover{transform:translateY(-4px);border-color:var(--a-line);box-shadow:var(--shadow)}
 .app-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--a)}
 .app-card::after{content:"";position:absolute;width:380px;height:380px;right:-140px;top:-160px;background:radial-gradient(closest-side,var(--a-dim),transparent);pointer-events:none}
 .app-card.rt{--a:#4ade80;--a-dim:rgba(74,222,128,.16);--a-line:rgba(74,222,128,.4)}
 .app-card.ft{--a:#fbbf24;--a-dim:rgba(251,191,36,.14);--a-line:rgba(251,191,36,.4)}
+.app-card.br{--a:#f472b6;--a-dim:rgba(244,114,182,.14);--a-line:rgba(244,114,182,.4)}
 .app-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .app-logo{width:48px;height:48px;border-radius:12px;background:#080c15;border:1px solid var(--a-line);display:grid;place-items:center;flex:none}
 .app-logo svg{width:30px;height:30px}
@@ -987,6 +989,24 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg-2)}
           <a class="btn btn-app" href="/fastrack/"><span class="lang-es">Ver Fastrack</span><span class="lang-en">See Fastrack</span> →</a>
         </div>
         <div class="app-url">codeengtools.eu/fastrack</div>
+      </article>
+
+      <article class="app-card br reveal">
+        <div class="app-top">
+          <span class="app-logo" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="21" fill="none" stroke="#f472b6" stroke-opacity=".4" stroke-width="3"/><circle cx="32" cy="32" r="13.2" fill="none" stroke="#f472b6" stroke-opacity=".75" stroke-width="3.5"/><circle cx="32" cy="32" r="5.7" fill="#f472b6"/></svg></span>
+          <div><div class="app-name">Breather</div><span class="app-badge"><span class="lang-es">Beta privada</span><span class="lang-en">Private beta</span></span></div>
+        </div>
+        <h3><span class="lang-es">Respira guiado, <em>sin pensar en cómo.</em></span><span class="lang-en">Guided breathing, <em>without thinking about it.</em></span></h3>
+        <p><span class="lang-es">Eliges para qué —calmarte, dormir, enfocarte— y la app lleva el ritmo con un círculo que crece y una vibración en cada fase. Diecisiete patrones y ninguna cuenta.</span><span class="lang-en">You pick what for — calm down, sleep, focus — and the app keeps the rhythm with a growing circle and a buzz at every phase. Seventeen patterns and no account.</span></p>
+        <ul class="app-chips">
+          <li>local-first</li>
+          <li><span class="lang-es">17 patrones</span><span class="lang-en">17 patterns</span></li>
+          <li><span class="lang-es">Sin cuenta</span><span class="lang-en">No account</span></li>
+        </ul>
+        <div class="app-cta">
+          <a class="btn btn-app" href="/breather/"><span class="lang-es">Ver Breather</span><span class="lang-en">See Breather</span> →</a>
+        </div>
+        <div class="app-url">codeengtools.eu/breather</div>
       </article>
     </div>
   </div>
